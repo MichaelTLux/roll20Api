@@ -1,0 +1,11 @@
+{
+  "name": "Crits and Fumbles",
+  "script": "CritsAndFumbles.js",
+  "version": "0.1.0",
+  "previousversions": [],
+  "description": "Critical hit generator. Use !critical [percent] to use.",
+  "authors": "Michael Lux",
+  "modifies": {},
+  "conflicts": [],
+  "useroptions": []
+}
