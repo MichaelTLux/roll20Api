@@ -1,0 +1,22 @@
+{
+  "name": "roll20-api",
+  "version": "1.0.0",
+  "description": "the container for all my roll20 api scripts",
+  "main": "none",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelTLux/roll20Api.git"
+  },
+  "author": "Michael Lux",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelTLux/roll20Api/issues"
+  },
+  "homepage": "https://github.com/MichaelTLux/roll20Api#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
