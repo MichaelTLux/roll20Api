@@ -165,24 +165,9 @@ const Critical = (function() {
         }
     }
 
-    /**
-     * Internal function given the roll value returns the object indicating the result and effect.
-     *
-     * @param {int} roll
-     * @returns {object} smack
-     * @private
-     */
-    function _determineCritical(roll) {
-        // Use _.find to figure out what happened.
-        return _.find(criticalHit, (hit) => {
-            return roll >= hit.low && roll <= hit.high;
-        });
-    }
-
     return {
         registerEventHandlers: registerEventHandlers,
         handleChatMessage: handleChatMessage,
-        _determineCritical: _determineCritical
     };
 }());
 
