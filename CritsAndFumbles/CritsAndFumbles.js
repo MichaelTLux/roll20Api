@@ -1,271 +1,118 @@
 const Critical = (function() {
-    const criticalHit =
-        [
-            {
-                low: 1,
-                high: 30,
-                result: 'Hard Hit',
-                slash: '2x Damage.',
-                blunt: '2x Damage.',
-                pierce: '2x Damage'
-            },
-            {
-                low: 31,
-                high: 40,
-                result: 'Powerful Hit',
-                slash: '2x Damage. 30% Chance shield breaks.',
-                blunt: '2x Damage. 30% Chance shield breaks.',
-                pierce: '2x Damage. Roll DEX or be knocked down.'
-            },
-            {
-                low: 41,
-                high: 65,
-                result: 'Massive Hit',
-                slash: '3x Damage.',
-                blunt: '3x Damage.',
-                pierce: '3x Damage.'
-            },
-            {
-                low: 66,
-                high: 69,
-                result: 'Eviscerating Hit',
-                slash: '3x Damage. 55% chance shield breaks',
-                blunt: '3x Damage. 55% chance shield breaks',
-                pierce: '3x Damage. Roll DEX or be knocked down.'
-            },
-            {
-                low: 70,
-                high: 70,
-                result: 'Hand',
-                slash: 'Slashed open, -1 to hit and damage.',
-                blunt: 'Smashed, -1 to hit and damage.',
-                pierce: 'Punctured muscle, -1 to hit and damage.'
-            },
-            {
-                low: 71,
-                high: 71,
-                result: 'Hand',
-                slash: 'Lose 1 finger, -1 to hit and damage.',
-                blunt: '1d4 fingers broken, -1 to hit and damage.',
-                pierce: 'Punctured muscle, -1 to hit and damage.'
-            },
-            {
-                low: 72,
-                high: 72,
-                result: 'Hand',
-                slash: 'Lose 1d4 fingers, -2 to hit and damage.',
-                blunt: 'hand broken, -2 to hit and damage.',
-                pierce: 'Punctured hand incapacitated, -2 to hit and damage.'
-            },
-            {
-                low: 73,
-                high: 73,
-                result: 'Foot',
-                slash: 'Slashed open, 1/2 movement.',
-                blunt: 'Toe crushed, 1/2 movement.',
-                pierce: 'Punctured muscle, 1/2 movement.'
-            },
-            {
-                low: 74,
-                high: 74,
-                result: 'Foot',
-                slash: 'Lose 1d2 toes, 1/2 movement.',
-                blunt: 'Smashed, 1/4 movement.',
-                pierce: 'Punctured muscle, 1/2 movement.'
-            },
-            {
-                low: 75,
-                high: 75,
-                result: 'Leg',
-                slash: 'Slashed open, 1/2 movement.',
-                blunt: 'Crushed thigh, 1/2 movement. Roll DEX or fall',
-                pierce: 'Punctured thigh, 1/2 movement. Roll DEX or fall.'
-            },
-            {
-                low: 76,
-                high: 76,
-                result: 'Leg',
-                slash: 'Removed at ankle, opponent falls.',
-                blunt: 'Broken knee, 1/4 movement. Roll DEX or fall',
-                pierce: 'Punctured thigh, 1/4 movement. Roll DEX or fall.'
-            },
-            {
-                low: 77,
-                high: 77,
-                result: 'Leg',
-                slash: 'Removed at knee, opponent falls.',
-                blunt: 'Broken hip bone, opponent falls, 1/4 movement. Roll DEX or fall',
-                pierce: 'Split knee, fall, 1/2 movement.'
-            },
-            {
-                low: 78,
-                high: 78,
-                result: 'Leg',
-                slash: 'Removed below hip, opponent falls.',
-                blunt: 'Broken skin, opponent falls, 1/4 movement.',
-                pierce: 'Split knee, fall, 1/4 movement.'
-            },
-            {
-                low: 79,
-                high: 79,
-                result: 'Arm',
-                slash: 'Wrist removed.',
-                blunt: 'Broken wrist.',
-                pierce: 'Pierced wrist, -1 to hit and damage.'
-            },
-            {
-                low: 80,
-                high: 80,
-                result: 'Arm',
-                slash: 'Elbow removed.',
-                blunt: 'Broken elbow.',
-                pierce: 'Torn shoulder, -1 to hit and damage.'
-            },
-            {
-                low: 81,
-                high: 81,
-                result: 'Arm',
-                slash: 'Arm removed below shoulder.',
-                blunt: 'Broken shoulder, incapacitated.',
-                pierce: 'Torn shoulder, incapacitated.'
-            },
-            {
-                low: 82,
-                high: 82,
-                result: 'Abdominal',
-                slash: 'Ripped open, guts hanging out, roll STR or fall.',
-                blunt: 'Broken shoulder, incapacitated.',
-                pierce: 'Torn shoulder, incapacitated.'
-            },
-            {
-                low: 83,
-                high: 83,
-                result: 'Abdominal',
-                slash: 'Ripped open, guts hanging out, stunned for one round.',
-                blunt: 'Crushed guts, stunned for one round.',
-                pierce: 'Stabbed, dead.'
-            },
-            {
-                low: 84,
-                high: 84,
-                result: 'Abdominal',
-                slash: 'Ripped open, dead.',
-                blunt: 'Pulped guts, dead.',
-                pierce: 'Stabbed, dead.'
-            },
-            {
-                low: 85,
-                high: 85,
-                result: 'Chest and Neck',
-                slash: 'Lung slashed, -1 on attack and damage.',
-                blunt: 'Shoulder smashed, -1 on attack and damage.',
-                pierce: 'Lung pierced, -1 on attack and damage.'
-            },
-            {
-                low: 86,
-                high: 86,
-                result: 'Chest and Neck',
-                slash: 'Rib broken, stunned one round.',
-                blunt: 'Shoulder crushed, -1 on attack and damage.',
-                pierce: 'Lung pierced, stunned for 1 round.'
-            },
-            {
-                low: 87,
-                high: 87,
-                result: 'Chest and Neck',
-                slash: 'Chest slashed open, dead.',
-                blunt: 'Rib broken, stunned one round.',
-                pierce: 'Lung pierced, stunned for 1 round.'
-            },
-            {
-                low: 88,
-                high: 88,
-                result: 'Chest and Neck',
-                slash: 'Throat cut, no speech.',
-                blunt: 'Rib broken, stunned one round.',
-                pierce: 'Chest pierced, incapacitated.'
-            },
-            {
-                low: 89,
-                high: 89,
-                result: 'Chest and Neck',
-                slash: 'Throat cut, no speech, lose helm.',
-                blunt: 'Ribcage broken, incapacitated.',
-                pierce: 'Heart pierced, dead.'
-            },
-            {
-                low: 90,
-                high: 90,
-                result: 'Chest and Neck',
-                slash: 'Chest slashed, -2 on attack and damage.',
-                blunt: 'Chest crushed, -2 on attack and damage.',
-                pierce: 'Heart pierced, dead.'
-            },
-            {
-                low: 91,
-                high: 92,
-                result: 'Chest and Neck',
-                slash: 'Throat cut, dead.',
-                blunt: 'Chest crushed, dead.',
-                pierce: 'Throat pierced, no speech.'
-            },
-            {
-                low: 93,
-                high: 94,
-                result: 'Head',
-                slash: 'Eye removed, stunned one round.',
-                blunt: 'Skull hit, stunned 1 round, lose 1d4 INT',
-                pierce: 'Throat pierced, dead.'
-            },
-            {
-                low: 95,
-                high: 96,
-                result: 'Head',
-                slash: 'Ear removed, lose helm.',
-                blunt: 'Skull hit, stunned 1 round, lose 2d4 INT',
-                pierce: 'Eye removed, lose helm.'
-            },
-            {
-                low: 95,
-                high: 96,
-                result: 'Head',
-                slash: 'Ear removed, lose helm.',
-                blunt: 'Skull hit, stunned 1 round, lose 2d4 INT',
-                pierce: 'Eye removed, lose helm.'
-            },
-            {
-                low: 97,
-                high: 97,
-                result: 'Head',
-                slash: 'Nose removed.',
-                blunt: 'Nose crushed.',
-                pierce: 'Skull hit, stunned 1 round, lost 1d4 INT.'
-            },
-            {
-                low: 98,
-                high: 98,
-                result: 'Head',
-                slash: '1d4 teeth lost.',
-                blunt: '1d4 teeth crushed.',
-                pierce: 'Skull hit, stunned 1 round, lost 1d4 INT.'
-            },
-            {
-                low: 99,
-                high: 99,
-                result: 'Head',
-                slash: 'Nose removed, 1d4 teeth lost.',
-                blunt: 'Nose crushed, 1d4 teeth crushed.',
-                pierce: 'Skull pierced, dead.'
-            },
-            {
-                low: 100,
-                high: 100,
-                result: 'Head',
-                slash: 'Decapitated, dead.',
-                blunt: 'Skull crushed, dead.',
-                pierce: 'Skull pierced, dead.'
+    const createEffect = (range, name, effect, minorInjuries, majorInjuries) => ({
+        range,
+        name,
+        effect,
+        minorInjuries,
+        majorInjuries
+    });
+
+    //stage one regex: ^([^?|.|!]+)+..([^\n]+) /gim || createEffect(1, "$1", "$2"),\n
+    //stage two regex: (\d), "(\n) || _$1, "_
+
+    const bludgeoningTable = [
+        createEffect(1, "You call that a crit", "Roll damage as normal."),
+        createEffect(2, "Smashed off balance", "Roll damage as normal and the next attack against the creature has advantage."),
+        createEffect(3, "Good hit", "Do not roll your damage dice, instead deal the maximum result possible with those dice."),
+        createEffect(2, "Sent reeling", "Do not roll your damage dice,instead deal the maximum result possible with those dice and push the creature up to 15 feet in any direction."),
+        createEffect(3, "Great hit", "Roll your damage dice twice and add them together."),
+        createEffect(2, "Take a seat", "Roll damage dice twice and add them together and the creature is knocked prone."),
+        createEffect(3, "Rocked and rolled", "Roll damage dice twice and add them together, push the creature up to 15 feet away, and the creature is knocked prone."),
+        createEffect(2, "Grievous injury", "Deal the maximum amount of damage from your normal damage dice then roll your damage dice and add the result. Then roll on the Minor Injury chart. If the creature is wearing heavy armor roll on the Major Injury chart instead.", 1, 1),
+        createEffect(1, "Crushed", "Deal the twice maximum result of your damage dice and roll on the major injury chart.", 0, 1),
+        createEffect(1, "Splat", "Deal the maximum result of your damage dice twice, the creature is stunned until the end of your next turn, and roll on the major injury chart.", 0, 1),
+    ];
+
+    const piercingTable = [
+        createEffect(1, "You call that a crit", "Roll damage as normal."),
+        createEffect(2, "Lunge and thrust", "Roll damage dice twice and use the higher result."),
+        createEffect(3, "Good hit", "Do not roll your damage dice, instead deal the maximum result possible with those dice."),
+        createEffect(2, "Stabbed", "Roll your damage dice twice and add them together."),
+        createEffect(3, "Great hit", "Roll your damage dice twice and add them together."),
+        createEffect(2, "Swiss cheese", "Roll twice as many damage dice as normal. Then roll twice on the minor injury chart and use the lower result.", 2),
+        createEffect(3, "Punctured", "Roll your damage dice twice and add them together.", 1),
+        createEffect(2, "Cruel prick", "Roll your damage dice twice and add them together.", 0, 1),
+        createEffect(1, "Run through", "Deal twice the maximum result of your damage dice.", 0,1),
+        createEffect(1, "Pierce", "Deal the maximum result of your damage dice twice.", 1,2)
+    ];
+
+    const slashingTable = [
+        createEffect(1, "You call that a crit", "Roll damage as normal."),
+        createEffect(2, "Sliced and diced", "Roll damage as normal and the creature loses 1d6 hit points at the start of its next turn."),
+        createEffect(3, "Good hit", "Do not roll your damage dice, instead deal the maximum result possible with those dice."),
+        createEffect(2, "Open gash", "Roll your damage dice as normal and the creature is bleeding. For the next minute the creature loses 1d4 damage at the start of each of its turns until it uses an action to staunch this wound."),
+        createEffect(3, "Great hit", "Roll your damage dice twice and add them together"),
+        createEffect(2, "Deep slice", "Roll your damage dice twice and add them together and the creature is bleeding. For the next minute the creature loses 1d8 hit points at the start of each of its turns until it uses an action to staunch this wound."),
+        createEffect(3, "Lacerated", "Roll your damage dice twice and add them together and the creature is bleeding. For the next minute the creature loses 1d12 hit points at the start of each of its turns until it uses an action to staunch this wound."),
+        createEffect(2, "Severed", "Deal the maximum amount of damage from your normal damage dice then roll your damage dice and add the result. Then roll on the Minor Injury chart. If the creature is wearing light or no armor roll on the Major Injury chart instead.", 1, 1),
+        createEffect(1, "Dissected", "Deal twice the maximum result of your damage dice", 0, 1),
+        createEffect(1, "Slash", "Deal the maximum result of your damage dice twice, and the creature is bleeding. For the next minute the creature loses 2d8 hit points at the start of each of its turns until it uses an action to staunch this wound.", 0, 1)
+    ];
+
+    const minorInjuries = [
+        createEffect(3, "Injured leg", "The creature’s movement speed is reduced by 10 ft."),
+        createEffect(5, "Injured arm", "Randomly determine one of the creature’s arms. That arm cannot be used to hold a shield and the creature has  disadvantage on any rolls involving the use of that arm."),
+        createEffect(3, "Multiple injuries", "The creature’s maximum hit points are reduced by an amount equivalent to half of the damage dealt by the attack."),
+        createEffect(5, "Badly beaten", "The creature has disadvantage on Constitution saving throws."),
+        createEffect(3, "Ringing blow", "The creature is stunned until the end of its next turn and deafened until it completes a the recuperate downtime activity."),
+        createEffect(1, "Blow to the head", "The creature is unconscious for 2d12 hours.")
+    ];
+
+    const majorInjuries = [
+        createEffect(3, "Crippled leg", "The creature’s movement speed is reduced by 10 feet and it has disadvantage on Dexterity saving throws."),
+        createEffect(5, "Crippled arm", "Randomly determine one of the creature’s arms. That arm cannot be used to hold an item and any ability check requiring that arm automatically fails or has disadvantage (DM’s choice)."),
+        createEffect(3, "Severely wounded", "The creature’s maximum hit points are reduced by an amount equivalent to the damage dealt by the attack."),
+        createEffect(5, "Edge of death", "The creature has disadvantage on Constitution and death saving throws."),
+        createEffect(3, "My eyes", "The creature is blinded."),
+        createEffect(1, "Decapitated", "The creature is dead.")
+    ];
+
+    const criticalHitTables = {
+        bludgeoning: bludgeoningTable,
+        piercing: piercingTable,
+        slashing: slashingTable
+    };
+
+    const getRandomNumber = (min, max) => Math.random() * (max - min) + min;
+
+    const getTableRange = (table) => table.reduce((accumulator, currentEffect) => accumulator + currentEffect.range, 0);
+
+    const getEffectByRoll = (roll, table) => {
+        let currentValue = 0;
+        table.forEach((effect) => {
+            currentValue = currentValue + effect.range;
+
+            if(currentValue >= roll) {
+                return effect;
             }
-        ];
+        });
+
+        return table[0];
+    };
+
+    const rollOnTableAndGetEffect = (table) => {
+        const minValue = 1;
+        const maxValue = getTableRange(table);
+        const roll = getRandomNumber(minValue, maxValue);
+        let effect = getEffectByRoll(roll, effectTable);
+
+        effect.roll = roll;
+
+        return effect;
+    };
+
+    const injuriesToString = (injuryArray) => {
+        let injuryString = "";
+        for(let i = 0; i < injuryArray.length; i++) {
+            const injury = injuryArray[i];
+            injuryString = `${injuryString}Rolled: ${injury.roll}\n`;
+            injuryString = `${injuryString}${injury.name}\n`;
+            injuryString = `${injuryString}${injury.effect}\n`;
+            injuryString = `${injuryString}\n`;
+        }
+
+        return injuryString;
+    };
 
     const registerEventHandlers = () => {
         on('chat:message', Critical.handleChatMessage);
@@ -278,41 +125,43 @@ const Critical = (function() {
      */
     function handleChatMessage(msg) {
         // Check if we are dealing with a !critical command.
-        if (msg.type === 'api' && msg.content.indexOf('!critical') !== -1) {
+        if (msg.type === 'api' && msg.content.indexOf('!critical') === 0) {
             const content = msg.content;
             const words = content.split(' ');
 
-            // Sanity check
-            if (words.length > 0) {
-                // Sanity check
-                if (words[0] === '!critical') {
-                    let rolled = 0;
+            if(!words[1]) {
+                sendChat('Error, no damage type specified', `valid options: ${Object.keys(criticalHitTables)}`);
+                return;
+            } else if(!criticalHitTables[words[1]]) {
+                sendChat('Error, missing damage type', `no damage type ${words[1]}, valid options: ${Object.keys(criticalHitTables)}`);
+                return;
+            }
 
-                    // Was a roll amount given? If so parse the second 'word' as an int, otherwise create a randomInteger.
-                    if (words.length === 2) {
-                        rolled = parseInt(words[1]);
-                    } else {
-                        rolled = randomInteger(100);
-                    }
+            const effectTable = criticalHitTables[words[1]];
+            const effect = rollOnTableAndGetEffect(effectTable);
 
-                    // Get the smack object as a smash variable
-                    const smash = Critical._determineCritical(rolled);
-
-                    // Sanity check
-                    if (smash) {
-                        // Send the critical result as a formatted string in chat
-                        sendChat(
-                            'Critical Hit',
-                            `${rolled.toString()}% <b>${smash.result}</b><br><i><b>Slash: </b>${smash.slash}</i><br><i><b>Blunt: </b>${smash.blunt}</i><br><i><b>Pierce: </b>${smash.pierce}</i>` //eslint-disable-line max-len
-                        );
-                    } else {
-                        sendChat(
-                            'Critical Hit',
-                            'Invalid % roll given, or something went wrong. GM makes something up.'
-                        );
-                    }
+            if (effect.minorInjuries) {
+                for(let i = 0; i < effect.minorInjuries; i++) {
+                    minorInjuries.push(rollOnTableAndGetEffect(minorInjuries));
                 }
             }
+
+            if (effect.majorInjuries) {
+                for(let i = 0; i < effect.minorInjuries; i++) {
+                    minorInjuries.push(rollOnTableAndGetEffect(majorInjuries));
+                }
+            }
+
+            console.log(effectTable, effect, minorInjuries, majorInjuries);
+            sendChat(
+                'Critical Hit',
+                `Rolled: ${effect.roll}
+                ${effect.name}
+                ${effect.effect}
+                ${injuriesToString(minorInjuries)}
+                ${injuriesToString(majorInjuries)}
+                `
+            );
         }
     }
 
