@@ -8,6 +8,7 @@ const Critical = (function() {
         insanityInjuries
     });
 
+    // http://homebrewery.naturalcrit.com/share/rkZTGMwnYl
     // stage one regex: ^([^?|.|!]+)+..([^\n]+) /gim || createEffect(1, '$1', '$2'),\n
     // stage two regex: (\d), '(\n) || _$1, '_
 
@@ -239,7 +240,9 @@ const Critical = (function() {
         thunder
     };
 
-    const fumbleChart = [
+    // https://saveversus.wordpress.com/2014/09/15/fumble-charts-dd-5th-edition/
+    // regex: • ([^?|.|!]+).(.+)?.
+    const fumbleTable = [
         createEffect(5, 'Slipped', 'You must make a successful DC 10 DEX Save or immediately fall prone'),
         createEffect(4, 'Pulled up lame', 'You must make a successful DC 10 CON save or your speed is halved until the end of the encounter'),
         createEffect(1, 'Something in your eye', 'Your melee attacks only do half damage for the remainder of the encounter'),
@@ -270,6 +273,51 @@ const Critical = (function() {
         createEffect(5, 'Self-inflicted wound', 'Your attack ricochets back and you hit yourself. Roll your damage as if you had hit your target and apply it to yourself'),
         createEffect(4, 'Did you see that', 'Your attack ricochets back and you hit yourself. Apply the maximum damage to yourself as if you had hit your target'),
         createEffect(1, 'No', 'Your attack ricochets back and you hit yourself. Apply the maximum critical damage to yourself as if you had hit your target')
+    ];
+
+    // https://saveversus.wordpress.com/2014/09/08/crit-charts-5th-edition-dd/
+    // regex: • ([^?|.|!]+).(.+)?.
+    const genericCritTable = [
+        createEffect(3, 'Gruesome slash', 'The target must make a successful DC 10 CON Save or receive disadvantage for its next attack'),
+        createEffect(3, 'Debilitating cut', 'Roll one extra die of the weapon’s damage to the target'),
+        createEffect(3, 'Vicious laceration', 'The target must make a successful DC 10 CON Save or suffer an additional 1d8 damage'),
+        createEffect(1, 'Horrific gash', 'The target loses its next attack as it staggers in shock from its wound'),
+        createEffect(3, 'Brutal wound', 'The target must make a successful DC 10 CON Save or its speed is halved for the remainder of the encounter'),
+        createEffect(3, 'Nasty slice', 'Reroll all 1s and 2s on the damage roll for this attack'),
+        createEffect(3, 'Savage chop', 'The target is also knocked prone'),
+        createEffect(1, 'Inspiring stroke', 'Your allies within 30 feet gain a d6 inspiration die that can be used during this encounter'),
+        createEffect(3, 'Ruthless assault', 'As a free action you may immediately make one melee attack vs. the same target'),
+        createEffect(3, 'Nicked an artery', 'The target must make a successful DC 12 CON Save or suffer and additional 1d8 damage every rd. until it saves'),
+        createEffect(3, 'Bloody trauma', 'The target’s melee attacks only deal half damage for the remainder of the encounter unless it makes a DC 10 CON Save'),
+        createEffect(1, 'Cleaving hack', 'One adjacent ally of the target is also struck by this attack and suffers the equivalent of half the inflicted damage'),
+        createEffect(3, 'Blood-curdling attack', 'The target becomes frightened for the remainder of the encounter'),
+        createEffect(3, 'Nauseating injury', 'The target is stunned for 1 rd'),
+        createEffect(3, 'Flesh-rending strike', 'The target is now vulnerable to slashing damage for the remainder of the encounter'),
+        createEffect(1, 'Monstrous damage', 'The target suffers triple damage'),
+        createEffect(3, 'Torturous impairment', 'The target becomes incapacitated for 1 rd'),
+        createEffect(3, 'Shocking violence', 'You receive advantage for all melee attacks vs. this opponent for the remainder of the encounter'),
+        createEffect(3, 'Traumatizing pain', 'The target becomes exhausted to level 4 of that condition'),
+        createEffect(1, 'Severing strike', 'The target’s off-hand is cut off. The target has disadvantage for the remainder of the encounter and 1d10 damage every rd. until healed'),
+        createEffect(3, 'Hellish distress', 'The target suffers the effects of a bane spell for the remainder of the encounter'),
+        createEffect(3, 'Grievous hurt', 'Roll twice on this chart and apply both effects to the target'),
+        createEffect(3, 'Wicked mutilation', 'The target suffers a permanent -1 loss to its CHA due to horrible scarring'),
+        createEffect(1, 'Calamitous blow', 'The target must make a successful DC 10 DEX save or it drops whatever it has in hand'),
+        createEffect(3, 'Heinous punishment', 'The target’s allies all suffer disadvantage for their next attack'),
+        createEffect(3, 'Vile suffering', 'The target must make a successful DC 15 CON Save or receive disadvantage for its next attack'),
+        createEffect(3, 'Ruinous harm', 'The target must make a successful DC 14 CON Save or suffer an additional 1d12 damage'),
+        createEffect(1, 'Slow and agonizing death', 'The target must make a successful DC 15 CON Save or suffer an additional 2d8 damage every rd. until it saves'),
+        createEffect(3, 'Dire consequences', 'Your allies receive advantage on all attacks vs. the target until the start of your next turn'),
+        createEffect(3, 'Excruciating damage', 'Reroll all 1s and 2s and 3s on the damage roll for this attack'),
+        createEffect(3, 'Vexing anguish', 'You receive advantage for all melee attacks vs. the target and the target has disadvantage for the remainder of the encounter'),
+        createEffect(1, 'Maimed', 'The target’s arm is severed. It suffers disadvantage for the remainder of the encounter and suffers 2d10 damage every rd. until healed'),
+        createEffect(3, 'Gutted', 'The target suffers triple damage and is incapacitated for 1 rd'),
+        createEffect(3, 'Gaping wound', 'The target suffers the damage rolled for the attack each round until healed'),
+        createEffect(3, 'Harrowing disfigurement', 'The target suffers a permanent -2 loss to its CHA due to horrible scarring'),
+        createEffect(1, 'Severed limb', 'The target’s arm is severed. It suffers disadvantage for the remainder of the encounter and suffers a 50% HP loss every rd. until healed'),
+        createEffect(3, 'Rent armor', 'The target’s AC is reduced by 2 for the remainder of the encounter'),
+        createEffect(3, 'Disemboweled', 'The target has disadvantage for the rest of the encounter and suffers the damage rolled each rd. until healed'),
+        createEffect(3, 'Devastating cost', 'As a free action you may immediately make one melee attack with advantage vs. the same target'),
+        createEffect(1, 'Decapitated', 'The target is slain')
     ];
 
     /* eslint-enable max-len */
@@ -316,6 +364,67 @@ const Critical = (function() {
         return injuryString;
     };
 
+    const rollGenericCritChart = () => {
+        const effect = rollOnTableAndGetEffect(genericCritTable)
+
+        sendChat(
+            'Critical Hit',
+            `
+            ${effect.roll}: ${effect.name}
+            ${effect.effect}
+            `
+        );
+    };
+    
+    const rollFumbleChart = () => {
+        const effect = rollOnTableAndGetEffect(fumbleTable);
+
+        sendChat(
+            'Fumble',
+            `
+            ${effect.roll}: ${effect.name}
+            ${effect.effect}
+            `
+        );
+    };
+
+    const rollElementalCritChart = () => {
+        const effectTable = criticalHitTables[words[1]];
+        const effect = rollOnTableAndGetEffect(effectTable);
+        const minor = [];
+        const major = [];
+        const insanity = [];
+
+        if (effect.minorInjuries) {
+            for(let i = 0; i < effect.minorInjuries; i++) {
+                minor.push(rollOnTableAndGetEffect(minorInjuries));
+            }
+        }
+
+        if (effect.majorInjuries) {
+            for(let i = 0; i < effect.minorInjuries; i++) {
+                major.push(rollOnTableAndGetEffect(majorInjuries));
+            }
+        }
+
+        if (effect.majorInjuries) {
+            for(let i = 0; i < effect.minorInjuries; i++) {
+                insanity.push(rollOnTableAndGetEffect(insanity));
+            }
+        }
+
+        sendChat(
+            'Critical Hit',
+            `
+                ${words[1]}, ${effect.roll}: ${effect.name}
+                ${effect.effect}
+                ${injuriesToString('MINOR', minor)}
+                ${injuriesToString('MAJOR', major)}
+                ${injuriesToString('INSANITY', insanity)}
+                `
+        )
+    };
+
     const registerEventHandlers = () => {
         on('chat:message', Critical.handleChatMessage);
     };
@@ -331,47 +440,27 @@ const Critical = (function() {
             const words = content.split(' ');
 
             if(!words[1]) {
-                sendChat('Error, no damage type specified', `valid options: ${Object.keys(criticalHitTables)}`);
+                rollGenericCritChart();
                 return;
             } else if(!criticalHitTables[words[1]]) {
                 sendChat('Error, missing damage type', `no damage type ${words[1]}, valid options: ${Object.keys(criticalHitTables)}`);
                 return;
             }
 
-            const effectTable = criticalHitTables[words[1]];
-            const effect = rollOnTableAndGetEffect(effectTable);
-            const minor = [];
-            const major = [];
-            const insanity = [];
-
-            if (effect.minorInjuries) {
-                for(let i = 0; i < effect.minorInjuries; i++) {
-                    minor.push(rollOnTableAndGetEffect(minorInjuries));
-                }
-            }
-
-            if (effect.majorInjuries) {
-                for(let i = 0; i < effect.minorInjuries; i++) {
-                    major.push(rollOnTableAndGetEffect(majorInjuries));
-                }
-            }
-
-            if (effect.majorInjuries) {
-                for(let i = 0; i < effect.minorInjuries; i++) {
-                    insanity.push(rollOnTableAndGetEffect(insanity));
-                }
-            }
-
-            sendChat(
-                'Critical Hit',
+            rollElementalCritChart();
+            return;
+        }
+        if (msg.type === 'api' && msg.content.indexOf('!fumble') === 0) {
+            rollFumbleChart();
+            return;
+        }
+        if (msg.type === 'api' && msg.content.indexOf('!helpMe') === 0) {
+            sendChat('Help',
                 `
-                ${words[1]}, ${effect.roll}: ${effect.name}
-                ${effect.effect}
-                ${injuriesToString('MINOR', minor)}
-                ${injuriesToString('MAJOR', major)}
-                ${injuriesToString('INSANITY', insanity)}
-                `
-            );
+                To roll the crit chart type "!critical" into the chat. To get special damage types add a one from this list: ${Object.keys(criticalHitTables).join(', ')}
+                ie: !critical fire
+                To roll the fumble chart type "!fumble" into the chat
+                `);
         }
     }
 
