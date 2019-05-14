@@ -239,6 +239,39 @@ const Critical = (function() {
         thunder
     };
 
+    const fumbleChart = [
+        createEffect(5, 'Slipped', 'You must make a successful DC 10 DEX Save or immediately fall prone'),
+        createEffect(4, 'Pulled up lame', 'You must make a successful DC 10 CON save or your speed is halved until the end of the encounter'),
+        createEffect(1, 'Something in your eye', 'Your melee attacks only do half damage for the remainder of the encounter'),
+        createEffect(5, 'Wicked backswing', 'You strike yourself slightly on your backswing and take 1d8 damage'),
+        createEffect(4, 'Wind knocked out of you', 'You become exhausted to level 1 of that condition'),
+        createEffect(1, 'Loss of confidence', 'You gain disadvantage for your attacks against this opponent for the remainder of the encounter'),
+        createEffect(5, 'Shook yourself up', 'You are stunned for 1 rd'),
+        createEffect(4, 'Give them hope', 'Your target’s allies within 30 feet gain a d6 inspiration die that can be used during this encounter'),
+        createEffect(1, 'Panic attack', 'You must make a successful DC 10 WIS Save or become frightened for the remainder of the encounter'),
+        createEffect(5, 'Dropped weapon', 'Your drop your weapon and it falls 10’ from your location in a random direction'),
+        createEffect(4, 'Discombobulated', 'You become incapacitated for 1 rd'),
+        createEffect(1, 'You’ve fallen and you can’t get up', 'You immediately fall prone and lose all movement this round'),
+        createEffect(5, 'Bad timing', 'You drop to last in the imitative order for the combat but do not act again this turn'),
+        createEffect(4, 'Broken bone', ' You break a bone in your hand. You suffer disadvantage for the rest of the encounter and take 1d6 damage every rd. until healed'),
+        createEffect(1, 'Easy prey', 'Allies of the target within 20’ will attack you with their next turn, unless they would suffer an Attack of Opportunity to do so'),
+        createEffect(5, 'Exposed defenses', 'Your swing unbalances you so much that your target may take one melee attack against you as a reaction'),
+        createEffect(4, 'Your own worst enemy', 'You suffer the effects of a bane spell for the remainder of the encounter'),
+        createEffect(1, 'Unguarded', 'All adjacent allies of your target may immediately take an attack of opportunity against you'),
+        createEffect(5, 'Costly mistake', 'Your target may reroll all 1s and 2s on the damage roll for his next successful melee attack vs. you'),
+        createEffect(4, 'Revealed intentions', 'You and your allies all suffer disadvantage for your next attack'),
+        createEffect(1, 'Wrong target', 'You mistakenly strike an ally adjacent to you with your attack'),
+        createEffect(5, 'Lodged weapon', 'Your weapon becomes stuck in the floor or a nearby object. You must make a DC 14 STR check to remove it as an action'),
+        createEffect(4, 'Devastating error', 'As a free action your opponent may immediately make one melee attack with advantage against you as a reaction'),
+        createEffect(1, 'Shattered', 'Your weapon breaks if it is non-magical. Enchanted weapons must make a DC 8 Save and get a +1 to their roll for every + of the weapon'),
+        createEffect(5, 'Thrown weapon', 'You lose your grip and throw your weapon. It lands 30’ from your location in a random direction'),
+        createEffect(4, 'Panic attack', 'You immediately suffer the effects of the Confusion spell for 1 rd'),
+        createEffect(1, 'Horrible aftermath', 'Roll twice on this chart and apply both effects to yourself.'),
+        createEffect(5, 'Self-inflicted wound', 'Your attack ricochets back and you hit yourself. Roll your damage as if you had hit your target and apply it to yourself'),
+        createEffect(4, 'Did you see that', 'Your attack ricochets back and you hit yourself. Apply the maximum damage to yourself as if you had hit your target'),
+        createEffect(1, 'No', 'Your attack ricochets back and you hit yourself. Apply the maximum critical damage to yourself as if you had hit your target')
+    ];
+
     /* eslint-enable max-len */
     /* eslint enable no-magic-numbers */
 
